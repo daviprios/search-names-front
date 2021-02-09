@@ -16,9 +16,7 @@ class Api{
   private errorResponse: AxiosResponse<ApiResponse> = {data: { code: 'error', message: 'client error' }, config: {}, headers: '', status: 400, statusText: '', request: ''};
 
   public async getNameTable(name?: string): Promise<AxiosResponse<ApiResponse>>{
-    return await this.api.put('/show', {
-      name
-    })
+    return await this.api.get(`/show?name=${name}`)
     .then((result: AxiosResponse<ApiResponse>) => {
       return result;
     })
@@ -56,9 +54,7 @@ class Api{
   }
 
   public async deleteName(code: number): Promise<AxiosResponse<ApiResponse>>{
-    return await this.api.put('/delete', {
-      code
-    })
+    return await this.api.delete(`/delete?code=${code}`)
     .then((result: AxiosResponse<ApiResponse>) => {
       return result;
     })
