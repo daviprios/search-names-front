@@ -10,7 +10,7 @@ import NotFound from 'pages/NotFound';
 
 function App() {
   return (
-    <div className="App">
+    <div id="App">
       <BrowserRouter>
         <Switch>
           <Route exact path='/' component={Home}/>
