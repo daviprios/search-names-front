@@ -31,7 +31,7 @@ export default function DeleteForm() {
   function handleSubmit(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
     api.deleteName(Number(codeInput)).then(result => {
-      result.data.code === 'success' ? setMessage('Enviado com sucesso') : setMessage('Falha no envio');
+      result.data.code === 'success' ? setMessage('Enviado com sucesso') : result.data.message === 'client error' ? setMessage('Falha no envio') : setMessage('Falha no servidor');
       setCodeInput('');
     });
     setMessage('Enviando...');

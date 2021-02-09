@@ -34,7 +34,7 @@ export default function ShowForm() {
     event.preventDefault();
     setNameTable([]);
     api.getNameTable(nameInput).then(result => {
-      result.data.code === 'success' ? setMessage('Enviado com sucesso') : setMessage('Falha no envio');
+      result.data.code === 'success' ? setMessage('Enviado com sucesso') : result.data.message === 'client error' ? setMessage('Falha no envio') : setMessage('Falha no servidor');
       setNameTable(result.data.names ? result.data.names : []);
       setNameInput('');
       setShowNameTable(true);
