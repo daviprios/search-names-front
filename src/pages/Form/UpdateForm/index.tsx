@@ -50,7 +50,7 @@ export default function UpdateForm() {
   }
 
   return (
-    <form onSubmit={event => handleSubmit(event)}>
+    <form id='UpdateForm' onSubmit={event => handleSubmit(event)}>
       <h1>
         Atualizar um nome
       </h1>

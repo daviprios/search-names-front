@@ -31,7 +31,7 @@ export default function ShowForm() {
   }
 
   return (
-    <form onSubmit={event => handleSubmit(event)}>
+    <form id='ShowForm' onSubmit={event => handleSubmit(event)}>
       <h1>
         Mostrar um ou mais nomes
       </h1>

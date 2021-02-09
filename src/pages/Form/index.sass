@@ -3,13 +3,7 @@
 #Form
   display: flex
   justify-content: center
-  align-items: center
-
-  &>form
-    width: 300px
-
-    &>*
-      width: 100%
+  align-items: center  
 
   #BackButton
     position: absolute
@@ -22,3 +16,29 @@
 
       color: $text-secondary-color
       background-color: $secondary-color
+
+  [id$='Form']
+    width: 300px
+
+    &>*
+      width: 100%
+
+      margin-bottom: 10px
+
+    &>p:first-of-type
+      margin-bottom: 20px
+
+    .textLimit
+      text-align: start
+
+      span
+        float: right
+
+        margin-bottom: 10px
+
+    .formInput, .submitButton
+      height: 2rem
+      border-radius: 15px
+
+    .formInput
+      padding: 5px 10px

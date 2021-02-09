@@ -32,7 +32,7 @@ export default function DeleteForm() {
   }
 
   return (
-    <form onSubmit={event => handleSubmit(event)}>
+    <form id='DeleteForm' onSubmit={event => handleSubmit(event)}>
       <h1>
         Deletar um nome
       </h1>

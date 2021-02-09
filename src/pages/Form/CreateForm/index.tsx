@@ -29,7 +29,7 @@ export default function CreateForm() {
   }
 
   return (
-    <form onSubmit={event => handleSubmit(event)}>
+    <form id='CreateForm' onSubmit={event => handleSubmit(event)}>
       <h1>
         Adicionar um nome
       </h1>
