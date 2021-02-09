@@ -13,7 +13,7 @@ class Api{
     baseURL: 'http://localhost:8000'
   });
 
-  private errorResponse: AxiosResponse<ApiResponse> = {data: { code: 'error', message: 'client error' }, config: {}, headers: '', status: 400, statusText: '', request: ''};
+  private errorResponse: AxiosResponse<ApiResponse> = {data: { code: 'error', message: 'error' }, config: {}, headers: '', status: 400, statusText: '', request: ''};
 
   public async getNameTable(name?: string): Promise<AxiosResponse<ApiResponse>>{
     return await this.api.get(`/show?name=${name}`)
