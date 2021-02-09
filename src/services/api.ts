@@ -61,9 +61,8 @@ class Api{
   }
 
   public async deleteName(code: number){
-    return await this.api.delete('/delete', {
-      data:
-        code
+    return await this.api.put('/delete', {
+      code
     })
     .then((result: AxiosResponse<NameResponse>) => {
       return result;

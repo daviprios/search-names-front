@@ -2,11 +2,14 @@ import React, { FormEvent, useEffect, useState } from 'react';
 
 import './index.sass';
 
+import api from 'services/api';
+
 export default function DeleteForm() {
   const [codeInput, setCodeInput] = useState('');
   const [isCodeMax, setIsCodeMax] = useState(false);
   const numberLimit = 4;
 
+  const [Message, setMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
@@ -27,7 +30,11 @@ export default function DeleteForm() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
-    setCodeInput('');
+    api.deleteName(Number(codeInput)).then(result => {
+      result.data.code === 'success' ? setMessage('Enviado com sucesso') : setMessage('Falha no envio');
+      setCodeInput('');
+    });
+    setMessage('Enviando...');
     setShowMessage(true);
   }
 
@@ -46,7 +53,7 @@ export default function DeleteForm() {
       </button>
       {showMessage ?
       <p>
-        Message 
+        {Message}
       </p>
       : <></>}
     </form>

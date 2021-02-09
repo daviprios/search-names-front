@@ -28,7 +28,7 @@ export default function CreateForm() {
   function handleSubmit(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
     api.createName(nameInput).then(result => {
-      result.data.code === 'success' ? setMessage('Sucesso') : setMessage('Falha');
+      result.data.code === 'success' ? setMessage('Enviado com sucesso') : setMessage('Falha no envio');
       setNameInput('');
     });
     setMessage('Enviando...');

@@ -2,6 +2,8 @@ import React, { FormEvent, useEffect, useState } from 'react';
 
 import './index.sass';
 
+import api from 'services/api';
+
 export default function UpdateForm() {
   const [nameInput, setNameInput] = useState('');
   const [isNameMax, setIsNameMax] = useState(false);
@@ -11,6 +13,7 @@ export default function UpdateForm() {
   const [isCodeMax, setIsCodeMax] = useState(false);
   const numberLimit = 4;
 
+  const [Message, setMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
@@ -44,8 +47,12 @@ export default function UpdateForm() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
-    setCodeInput('');
-    setNameInput('');
+    api.updateName(nameInput, Number(codeInput)).then(result => {
+      result.data.code === 'success' ? setMessage('Enviado com sucesso') : setMessage('Falha no envio');
+      setCodeInput('');
+      setNameInput('');
+    });
+    setMessage('Enviando...');
     setShowMessage(true);
   }
 
@@ -66,7 +73,7 @@ export default function UpdateForm() {
       </button>
       {showMessage ?
       <p>
-        Message 
+        {Message}
       </p>
       : <></>}
     </form>
