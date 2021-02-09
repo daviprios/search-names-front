@@ -11,6 +11,8 @@ export default function UpdateForm() {
   const [isCodeMax, setIsCodeMax] = useState(false);
   const numberLimit = 4;
 
+  const [showMessage, setShowMessage] = useState(false);
+
   useEffect(() => {
     if(nameInput.length >= characterLimit && !isNameMax)
       setIsNameMax(true);
@@ -32,23 +34,41 @@ export default function UpdateForm() {
   }
 
   function handleCode(event: FormEvent<HTMLInputElement>){
-    if(isCodeMax && event.currentTarget.value.length > codeInput.length)
+    const value = event.currentTarget.value;
+    if(value.length !== 0 && value[value.length - 1].match(/\D/))
       return;
-    setCodeInput(event.currentTarget.value);
+    if(isCodeMax && value.length > codeInput.length)
+      return;
+    setCodeInput(value);
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>){
+    event.preventDefault();
+    setCodeInput('');
+    setNameInput('');
+    setShowMessage(true);
   }
 
   return (
-    <div>
+    <form onSubmit={event => handleSubmit(event)}>
       <h1>
         Atualizar um nome
       </h1>
       <p>
         Escreva o código e o novo nome a substituir
       </p>
-      <p>Limite de numeros atingido <span>{codeInput.length}/{numberLimit}</span></p>
-      <input placeholder='Código' onChange={event => handleCode(event)} value={codeInput}/>
-      <p>Limite de caracteres atingido <span>{nameInput.length}/{characterLimit}</span></p>
-      <input placeholder='Nome' onChange={event => handleName(event)} value={nameInput}/>
-    </div>
+      <p className='textLimit'>{isCodeMax ? 'Limite de numeros atingido' : ''}<span>{codeInput.length}/{numberLimit}</span></p>
+      <input className='formInput' required placeholder='Código' onChange={event => handleCode(event)} value={codeInput}/>
+      <p className='textLimit'>{isNameMax ? 'Limite de caracteres atingido' : ''}<span>{nameInput.length}/{characterLimit}</span></p>
+      <input className='formInput' required placeholder='Nome' onChange={event => handleName(event)} value={nameInput}/>
+      <button className='submitButton' type='submit'>
+        Enviar
+      </button>
+      {showMessage ?
+      <p>
+        Message 
+      </p>
+      : <></>}
+    </form>
   )
 }
