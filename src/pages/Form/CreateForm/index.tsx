@@ -2,11 +2,14 @@ import React, { FormEvent, useEffect, useState } from 'react';
 
 import './index.sass';
 
+import api from 'services/api';
+
 export default function CreateForm() {
   const [nameInput, setNameInput] = useState('');
   const [isNameMax, setIsNameMax] = useState(false);
   const characterLimit = 100;
 
+  const [Message, setMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
@@ -24,7 +27,11 @@ export default function CreateForm() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
-    setNameInput('');
+    api.createName(nameInput).then(result => {
+      result.data.code === 'success' ? setMessage('Sucesso') : setMessage('Falha');
+      setNameInput('');
+    });
+    setMessage('Enviando...');
     setShowMessage(true);
   }
 
@@ -43,7 +50,7 @@ export default function CreateForm() {
       </button>
       {showMessage ?
       <p>
-        Message 
+        {Message}
       </p>
       : <></>}
     </form>
