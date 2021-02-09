@@ -27,7 +27,7 @@ export default function NamesTable(props: { list: NameList[], size: number, tota
         <tbody>
           {list.map(item => {
             return (
-              <tr>
+              <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
               </tr>

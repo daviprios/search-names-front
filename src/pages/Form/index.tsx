@@ -12,7 +12,7 @@ import DeleteForm from './DeleteForm';
 export default function Form() {
   return (
     <div id='Form'>
-      <Link to='/'>
+      <Link to='/' id='BackButton'>
         <button>
           Voltar para o menu principal
         </button>
