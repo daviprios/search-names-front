@@ -13,7 +13,7 @@ export default function NamesTable(props: { list: NameList[], size: number, tota
 
   return (
     <>
-      <table>
+      <table id='NamesTable'>
         <colgroup>
           <col span={1} id='TableCol1'/>
           <col span={1} id='TableCol2'/>
@@ -35,22 +35,20 @@ export default function NamesTable(props: { list: NameList[], size: number, tota
           })}
         </tbody>
       </table>
-      <div>
-        <button>
+      <div id='StepMenu'>
+        <button className='stepButton' type='button'>
           {'<'}
         </button>
-        <div>
-          <button>
-            1
-          </button>
-          <button>
-            {pages / 2 - ((pages & 1) === 0 ? 0 : 0.5 )}
-          </button>
-          <button>
-            {pages}
-          </button>
-        </div>
-        <button>
+        <button className='stepPageNumber' type='button'>
+          1
+        </button>
+        <button className='stepPageNumber' type='button'>
+          {pages / 2 - ((pages & 1) === 0 ? 0 : 0.5 )}
+        </button>
+        <button className='stepPageNumber' type='button'>
+          {pages}
+        </button>
+        <button className='stepButton' type='button'>
           {'>'}
         </button>
       </div>
