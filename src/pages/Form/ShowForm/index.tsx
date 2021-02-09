@@ -2,6 +2,8 @@ import React, { FormEvent, useEffect, useState } from 'react';
 
 import './index.sass';
 
+import NamesTable from 'components/namesTable';
+
 export default function ShowForm() {
   const [nameInput, setNameInput] = useState('');
   const [isNameMax, setIsNameMax] = useState(false);
@@ -46,6 +48,7 @@ export default function ShowForm() {
         Message 
       </p>
       : <></>}
+      <NamesTable list={[{id: '1', name: 'Adalbertino'},{id: '2', name: 'Bragão'},{id: '3', name: 'Cinderela'}]} size={3} total={18}/>
     </form>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './index.sass';
+import './namesTable.sass';
 
 export interface NameList{
   id: number | string,
@@ -8,6 +8,9 @@ export interface NameList{
 }
 
 export default function NamesTable(props: { list: NameList[], size: number, total: number}) {
+  const list = props.list.slice(0, props.size);
+  const pages = props.total / props.size + ((props.total % props.size) > 0 ? 1 : 0);
+
   return (
     <>
       <table>
@@ -22,37 +25,33 @@ export default function NamesTable(props: { list: NameList[], size: number, tota
           </tr>
         </thead>
         <tbody>
-          {
-          <tr>
-            <td></td>
-            <td></td>
-          </tr>
-          }
+          {list.map(item => {
+            return (
+              <tr>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <div>
         <button>
-
+          {'<'}
         </button>
         <div>
           <button>
-
+            1
           </button>
           <button>
-
+            {pages / 2 - ((pages & 1) === 0 ? 0 : 0.5 )}
           </button>
           <button>
-
-          </button>
-          <button>
-
-          </button>
-          <button>
-            
+            {pages}
           </button>
         </div>
         <button>
-
+          {'>'}
         </button>
       </div>
     </>
