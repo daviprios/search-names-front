@@ -2,7 +2,13 @@ import React, { FormEvent, useEffect, useState } from 'react';
 
 import './index.sass';
 
-import NamesTable from 'components/namesTable';
+import NamesTable, { NameList } from 'components/namesTable';
+
+export interface NameResponse{
+  names: NameList[],
+  pagesize: number,
+  total: number
+}
 
 export default function ShowForm() {
   const [nameInput, setNameInput] = useState('');
@@ -10,6 +16,8 @@ export default function ShowForm() {
   const characterLimit = 100;
 
   const [showMessage, setShowMessage] = useState(false);
+
+  const [nameResponse, setNameResponse] = useState<NameResponse>({names: [],pagesize: 0, total: 0});
 
   useEffect(() => {
     if(nameInput.length >= characterLimit && !isNameMax)
@@ -28,6 +36,7 @@ export default function ShowForm() {
     event.preventDefault();
     setNameInput('');
     setShowMessage(true);
+    setNameResponse({names: [{id: '1', name: 'Adalbertino'},{id: '2', name: 'Bragão'},{id: '3', name: 'Cinderela'}], pagesize: 3, total: 18});
   }
 
   return (
@@ -48,7 +57,9 @@ export default function ShowForm() {
         Message 
       </p>
       : <></>}
-      <NamesTable list={[{id: '1', name: 'Adalbertino'},{id: '2', name: 'Bragão'},{id: '3', name: 'Cinderela'}]} size={3} total={18}/>
+      { nameResponse.total <= 0 ? <></> :
+        <NamesTable list={nameResponse.names} size={nameResponse.pagesize} total={nameResponse.total}/>
+      }
     </form>
   )
 }
