@@ -12,11 +12,13 @@ import DeleteForm from './DeleteForm';
 export default function Form() {
   return (
     <div id='Form'>
-      <Link to='/' id='BackButton'>
-        <button>
-          Voltar para o menu principal
-        </button>
-      </Link>
+      <div id='BackButton'>
+        <Link to='/' >
+          <button>
+            Voltar para o menu principal
+          </button>
+        </Link>
+      </div>
       <Switch>
         <Route path='/form/create' component={CreateForm}/>
         <Route path='/form/show' component={ShowForm}/>

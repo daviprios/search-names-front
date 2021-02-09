@@ -4,24 +4,42 @@
   display: flex
   justify-content: center
   align-items: center  
+  flex-direction: column
 
   #BackButton
-    position: absolute
-    top: 25px
+    position: fixed
+    top: 0px
 
-    button
-      padding: 10px 20px
+    display: flex
+    justify-content: center
+    align-items: center
 
-      border-radius: 20px
+    height: 80px
+    width: 100%
 
-      color: $text-secondary-color
-      background-color: $secondary-color
+    background-color: $primary-color
+    
+    a
+      position: absolute
+      top: 25px
 
-      &:hover
-        background-color: $tertiary-color
+      button
+        padding: 10px 20px
+
+        border-radius: 20px
+
+        color: $text-secondary-color
+        background-color: $secondary-color
+
+        &:hover
+          background-color: $tertiary-color
 
   [id$='Form']
     width: 300px
+
+    &[data-list-on='true']
+      height: calc(100% - 80px)
+      margin-top: 80px
 
     &>*
       width: 100%

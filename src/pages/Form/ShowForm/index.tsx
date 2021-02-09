@@ -44,7 +44,7 @@ export default function ShowForm() {
   }
 
   return (
-    <form id='ShowForm' onSubmit={event => handleSubmit(event)}>
+    <form id='ShowForm' data-list-on={showNameTable} onSubmit={event => handleSubmit(event)}>
       <h1>
         Mostrar um ou mais nomes
       </h1>
