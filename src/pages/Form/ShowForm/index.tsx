@@ -2,22 +2,20 @@ import React, { FormEvent, useEffect, useState } from 'react';
 
 import './index.sass';
 
-import NamesTable, { NameList } from 'components/namesTable';
+import api from 'services/api';
 
-export interface NameTable{
-  names: NameList[],
-  pagesize: number,
-  total: number
-}
+import NamesTable, { NameList } from 'components/namesTable';
 
 export default function ShowForm() {
   const [nameInput, setNameInput] = useState('');
   const [isNameMax, setIsNameMax] = useState(false);
   const characterLimit = 100;
 
+  const [Message, setMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
 
-  const [nameTable, setNameTable] = useState<NameTable>({names: [],pagesize: 0, total: 0});
+  const [nameTable, setNameTable] = useState<NameList[]>([{id: 0, name: ''}]);
+  const [showNameTable, setShowNameTable] = useState(false);
 
   useEffect(() => {
     if(nameInput.length >= characterLimit && !isNameMax)
@@ -34,9 +32,15 @@ export default function ShowForm() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>){
     event.preventDefault();
-    setNameInput('');
+    setNameTable([]);
+    api.getNameTable(nameInput).then(result => {
+      result.data.code === 'success' ? setMessage('Enviado com sucesso') : setMessage('Falha no envio');
+      setNameTable(result.data.names ? result.data.names : []);
+      setNameInput('');
+      setShowNameTable(true);
+    });
+    setMessage('Enviando...');
     setShowMessage(true);
-    setNameTable({names: [{id: '1', name: 'Adalbertino'},{id: '2', name: 'Bragão'},{id: '3', name: 'Cinderela'}], pagesize: 3, total: 18});
   }
 
   return (
@@ -48,18 +52,16 @@ export default function ShowForm() {
         Escreva o nome que quer pesquisar
       </p>
       <p className='textLimit'>{isNameMax ? 'Limite de caracteres atingido' : ''}<span>{nameInput.length}/{characterLimit}</span></p>
-      <input className='formInput' required placeholder='Nome' onChange={event => handleName(event)} value={nameInput}/>
+      <input className='formInput' placeholder='Nome' onChange={event => handleName(event)} value={nameInput}/>
       <button className='submitButton' type='submit'>
         Enviar
       </button>
       {showMessage ?
       <p>
-        Message 
+        {Message}
       </p>
       : <></>}
-      { nameTable.total <= 0 ? <></> :
-        <NamesTable list={nameTable.names} size={nameTable.pagesize} total={nameTable.total}/>
-      }
+      { showNameTable ? <NamesTable list={nameTable}/> : <></>}
     </form>
   )
 }

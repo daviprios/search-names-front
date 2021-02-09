@@ -5,26 +5,21 @@ import { NameList } from 'components/namesTable';
 interface ApiResponse{
   code: string,
   message: string,
-}
-
-interface NameResponse extends ApiResponse{
-  names: NameList[]
+  names?: NameList[]
 }
 
 class Api{
-  api = axios.create({
+  private api = axios.create({
     baseURL: 'http://localhost:8000'
   });
 
-  errorResponse: AxiosResponse<ApiResponse> = {data: { code: 'error', message: 'client error' }, config: {}, headers: '', status: 400, statusText: '', request: ''};
+  private errorResponse: AxiosResponse<ApiResponse> = {data: { code: 'error', message: 'client error' }, config: {}, headers: '', status: 400, statusText: '', request: ''};
 
-  public async getNameTable(name?: string): Promise<AxiosResponse<ApiResponse> | void>{
-    return await this.api.get('/show', {
-      data: {
-        name
-      }
+  public async getNameTable(name?: string): Promise<AxiosResponse<ApiResponse>>{
+    return await this.api.put('/show', {
+      name
     })
-    .then((result: AxiosResponse<NameResponse>) => {
+    .then((result: AxiosResponse<ApiResponse>) => {
       return result;
     })
     .catch((err: any) => {
@@ -33,11 +28,11 @@ class Api{
     });
   }
 
-  public async createName(name: string){
+  public async createName(name: string): Promise<AxiosResponse<ApiResponse>>{
     return await this.api.post('/create', {
       name
     })
-    .then((result: AxiosResponse<NameResponse>) => {
+    .then((result: AxiosResponse<ApiResponse>) => {
       return result;
     })
     .catch((err: any) => {
@@ -46,12 +41,12 @@ class Api{
     });
   }
 
-  public async updateName(name: string, code: number){
+  public async updateName(name: string, code: number): Promise<AxiosResponse<ApiResponse>>{
     return await this.api.patch('/update', {
       name,
       code
     })
-    .then((result: AxiosResponse<NameResponse>) => {
+    .then((result: AxiosResponse<ApiResponse>) => {
       return result;
     })
     .catch((err: any) => {
@@ -60,11 +55,11 @@ class Api{
     });
   }
 
-  public async deleteName(code: number){
+  public async deleteName(code: number): Promise<AxiosResponse<ApiResponse>>{
     return await this.api.put('/delete', {
       code
     })
-    .then((result: AxiosResponse<NameResponse>) => {
+    .then((result: AxiosResponse<ApiResponse>) => {
       return result;
     })
     .catch((err: any) => {
