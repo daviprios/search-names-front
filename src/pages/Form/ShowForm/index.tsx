@@ -34,10 +34,20 @@ export default function ShowForm() {
     event.preventDefault();
     setNameTable([]);
     api.getNameTable(nameInput).then(result => {
-      result.data.code === 'success' ? setMessage('Enviado com sucesso') : setMessage('Algo deu errado ;-;');
+      if(result.data.code === 'success'){
+        if(result.data.names?.length === 0){
+          setMessage('Sem resultado');
+          setShowNameTable(false);
+        }else{
+          setMessage('Enviado com sucesso');
+          setShowNameTable(true);
+        }
+      } else {
+        setMessage('Algo deu errado ;-;');
+        setShowNameTable(false);
+      }
       setNameTable(result.data.names ? result.data.names : []);
       setNameInput('');
-      setShowNameTable(true);
     });
     setMessage('Enviando...');
     setShowMessage(true);
